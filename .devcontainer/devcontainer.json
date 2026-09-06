@@ -1,11 +1,16 @@
 {
-  "name": "BasicApp2 Frontend",
-  "dockerComposeFile": "../../compose.yaml",
-  "service": "frontend",
-  "workspaceFolder": "/app",
-  "customizations": {
-    "vscode": {
-      "extensions": ["Vue.volar", "eamodio.gitlens", "esbenp.prettier-vscode"]
+    "name": "BasicApp2 Frontend",
+    "dockerComposeFile": "../../compose.yaml",
+    "service": "frontend",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Vue.volar",
+                "eamodio.gitlens",
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint"
+            ]
+        }
     }
-  }
 }
