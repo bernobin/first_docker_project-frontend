@@ -22,3 +22,10 @@ export const AlertType = {
 } as const;
 
 export type AlertType = (typeof AlertType)[keyof typeof AlertType];
+
+export const ThemeMode = {
+    LIGHT: 'light',
+    DARK: 'dark',
+} as const;
+
+export type ThemeMode = (typeof ThemeMode)[keyof typeof ThemeMode];

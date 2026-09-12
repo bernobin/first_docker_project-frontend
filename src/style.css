@@ -11,13 +11,87 @@
         'Segoe UI',
         sans-serif;
 
-    color: #1f2937;
-    background: #f3f4f6;
+    color-scheme: light;
+
+    --color-background: #f3f4f6;
+    --color-surface: #ffffff;
+    --color-surface-secondary: #f8fafc;
+
+    --color-text: #1f2937;
+    --color-text-secondary: #4b5563;
+    --color-text-muted: #6b7280;
+
+    --color-border: #e5e7eb;
+    --color-border-input: #d1d5db;
+
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-primary-light: #dbeafe;
+    --color-primary-focus: rgb(37 99 235 / 12%);
+
+    --color-secondary: #e5e7eb;
+    --color-secondary-hover: #d1d5db;
+    --color-secondary-text: #374151;
+
+    --color-danger: #fee2e2;
+    --color-danger-hover: #fecaca;
+    --color-danger-text: #b91c1c;
+
+    --color-error-background: #fee2e2;
+    --color-error-border: #fecaca;
+    --color-error-text: #991b1b;
+
+    --color-shadow: rgb(0 0 0 / 5%);
+}
+
+:root[data-theme='dark'] {
+    color-scheme: dark;
+
+    --color-background: #111827;
+    --color-surface: #1f2937;
+    --color-surface-secondary: #374151;
+
+    --color-text: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-text-muted: #9ca3af;
+
+    --color-border: #374151;
+    --color-border-input: #4b5563;
+
+    --color-primary: #3b82f6;
+    --color-primary-hover: #60a5fa;
+    --color-primary-light: #1e3a8a;
+    --color-primary-focus: rgb(59 130 246 / 20%);
+
+    --color-secondary: #374151;
+    --color-secondary-hover: #4b5563;
+    --color-secondary-text: #f3f4f6;
+
+    --color-danger: #451a1a;
+    --color-danger-hover: #7f1d1d;
+    --color-danger-text: #fca5a5;
+
+    --color-error-background: #451a1a;
+    --color-error-border: #7f1d1d;
+    --color-error-text: #fca5a5;
+
+    --color-shadow: rgb(0 0 0 / 20%);
+}
+
+html {
+    background: var(--color-background);
 }
 
 body {
     margin: 0;
     min-width: 320px;
+
+    background: var(--color-background);
+    color: var(--color-text);
+
+    transition:
+        background-color 0.2s,
+        color 0.2s;
 }
 
 button,
@@ -37,10 +111,21 @@ button {
 /* Header */
 
 .header {
-    background: #2563eb;
+    position: relative;
+
+    background: var(--color-primary);
     color: white;
     padding: 32px 0;
     margin-bottom: 32px;
+}
+
+.header-content {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
 }
 
 .header h1 {
@@ -50,7 +135,7 @@ button {
 
 .header p {
     margin: 0;
-    color: #dbeafe;
+    color: var(--color-primary-light);
 }
 
 /* Layout */
@@ -64,10 +149,15 @@ button {
 
 .card,
 .post-card {
-    background: white;
-    border: 1px solid #e5e7eb;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgb(0 0 0 / 5%);
+    box-shadow: 0 2px 6px var(--color-shadow);
+
+    transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        box-shadow 0.2s;
 }
 
 .card {
@@ -86,6 +176,8 @@ button {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+
+    min-height: 38px;
     margin-bottom: 20px;
 }
 
@@ -113,22 +205,36 @@ button {
     width: 100%;
     padding: 11px 12px;
 
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-border-input);
     border-radius: 7px;
 
-    background: white;
-    color: #111827;
+    background: var(--color-surface);
+    color: var(--color-text);
 
     outline: none;
+
     transition:
         border-color 0.15s,
-        box-shadow 0.15s;
+        box-shadow 0.15s,
+        background-color 0.2s,
+        color 0.2s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--color-text-muted);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgb(37 99 235 / 12%);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-focus);
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .form-group textarea {
@@ -142,8 +248,11 @@ button {
     border-radius: 7px;
     padding: 9px 15px;
     font-weight: 600;
+    line-height: 20px;
+
     transition:
         background 0.15s,
+        color 0.15s,
         transform 0.05s;
 }
 
@@ -151,31 +260,36 @@ button {
     transform: translateY(1px);
 }
 
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 .button-primary {
-    background: #2563eb;
+    background: var(--color-primary);
     color: white;
 }
 
-.button-primary:hover {
-    background: #1d4ed8;
+.button-primary:hover:not(:disabled) {
+    background: var(--color-primary-hover);
 }
 
 .button-secondary {
-    background: #e5e7eb;
-    color: #374151;
+    background: var(--color-secondary);
+    color: var(--color-secondary-text);
 }
 
-.button-secondary:hover {
-    background: #d1d5db;
+.button-secondary:hover:not(:disabled) {
+    background: var(--color-secondary-hover);
 }
 
 .button-danger {
-    background: #fee2e2;
-    color: #b91c1c;
+    background: var(--color-danger);
+    color: var(--color-danger-text);
 }
 
-.button-danger:hover {
-    background: #fecaca;
+.button-danger:hover:not(:disabled) {
+    background: var(--color-danger-hover);
 }
 
 /* Posts */
@@ -200,12 +314,12 @@ button {
 .post-content h3 {
     margin: 0 0 10px;
     font-size: 19px;
-    color: #111827;
+    color: var(--color-text);
 }
 
 .post-content p {
     margin: 0;
-    color: #4b5563;
+    color: var(--color-text-secondary);
     line-height: 1.6;
     white-space: pre-wrap;
 }
@@ -220,12 +334,16 @@ button {
 /* Empty state */
 
 .empty-state {
-    background: white;
-    border: 1px dashed #d1d5db;
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border-input);
     border-radius: 10px;
     padding: 40px;
     text-align: center;
-    color: #6b7280;
+    color: var(--color-text-muted);
+
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
 }
 
 .empty-state p {
@@ -239,9 +357,9 @@ button {
     padding: 12px 16px;
     border-radius: 7px;
 
-    background: #fee2e2;
-    border: 1px solid #fecaca;
-    color: #991b1b;
+    background: var(--color-error-background);
+    border: 1px solid var(--color-error-border);
+    color: var(--color-error-text);
 }
 
 /* Mobile */
@@ -249,6 +367,10 @@ button {
 @media (max-width: 600px) {
     .header {
         padding: 24px 0;
+    }
+
+    .header-content {
+        align-items: flex-start;
     }
 
     .header h1 {
