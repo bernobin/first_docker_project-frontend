@@ -3,21 +3,22 @@ import { defineComponent } from 'vue';
 
 import type { Post, PostInput } from '@/types/post';
 
-import BaseAlert from '@/components/BaseAlert.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import PostForm from '@/components/posts/PostForm.vue';
 import PostList from '@/components/posts/PostList.vue';
 
 import { usePosts } from '@/composables/usePosts';
+import { AlertType, ButtonVariant } from '@/types/ui';
+import BaseToast from '@/components/BaseToast.vue';
 
 export default defineComponent({
     name: 'PostsView',
 
     components: {
-        BaseAlert,
         BaseButton,
         PostForm,
         PostList,
+        BaseToast,
     },
 
     setup() {
@@ -26,9 +27,13 @@ export default defineComponent({
 
     data(): {
         editingPost: Post | null;
+        AlertType: typeof AlertType;
+        ButtonVariant: typeof ButtonVariant;
     } {
         return {
             editingPost: null,
+            AlertType,
+            ButtonVariant,
         };
     },
 
@@ -84,15 +89,19 @@ export default defineComponent({
             @cancel="handleCancel"
         />
 
-        <BaseAlert v-if="error" type="error">
+        <BaseToast v-if="error" :type="AlertType.SUCCESS" @close="error = null">
             {{ error }}
-        </BaseAlert>
+        </BaseToast>
 
         <section class="posts-section">
             <div class="section-header">
                 <h2>Posts</h2>
 
-                <BaseButton variant="secondary" :loading="loading" @click="loadPosts">
+                <BaseButton
+                    :variant="ButtonVariant.SECONDARY"
+                    :loading="loading"
+                    @click="loadPosts"
+                >
                     Refresh
                 </BaseButton>
             </div>
