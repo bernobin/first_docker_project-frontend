@@ -38,9 +38,12 @@ export default defineComponent({
 
     methods: {
         async handleSubmit(data: PostInput): Promise<void> {
+            console.log('submit', this.$refs.postForm);
             await this.savePost(this.editingPost?.id ?? null, data);
 
             this.editingPost = null;
+            const postForm = this.$refs.postForm as InstanceType<typeof PostForm>;
+            postForm.reset();
         },
 
         handleEdit(post: Post): void {
@@ -74,6 +77,7 @@ export default defineComponent({
 <template>
     <main class="container">
         <PostForm
+            ref="postForm"
             :post="editingPost"
             :saving="saving"
             @submit="handleSubmit"

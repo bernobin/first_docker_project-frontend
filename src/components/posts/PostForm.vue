@@ -84,6 +84,13 @@ export default defineComponent({
             this.error = '';
             this.$emit('cancel');
         },
+
+        reset(): void {
+            console.log('reset');
+            this.title = '';
+            this.content = '';
+            this.error = '';
+        },
     },
 });
 </script>
